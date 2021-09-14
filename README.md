@@ -1,24 +1,8 @@
 # vue-assignment-3
+---
 
-## Project setup
-```
-npm install
-```
+This is the second assignment that is part of the frontend course. We were tasked to make a quiz game using the Vue js framework
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+We worked on this assignment in a group consisting of me (Maritn Johansen) and Martin Stenberg.
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+The project also contains a pdf file representing the component tree.
