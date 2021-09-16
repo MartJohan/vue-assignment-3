@@ -63,6 +63,9 @@ export default createStore({
         },
         getScore : state => {
             return state.score;
+        },
+        getGameArray : state => {
+            return state.gameArray;
         }
     }
 });

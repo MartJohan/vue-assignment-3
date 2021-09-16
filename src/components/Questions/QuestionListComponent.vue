@@ -5,14 +5,13 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations,mapGetters } from 'vuex';
 export default {
   name: "QuestionList",
   props: ['questions'],
   emits : ["completed-game"],
   created() {
     this.currentQuestion = this.questions[this.counter];
-    this.setGameArray(this.gameArray);
     this.updateAnswers()
   },
   data() {
@@ -25,6 +24,8 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setGameArray']),
+    ...mapGetters(['getUserName']),
     handleNextQuestion(answer) {
       if (answer === this.currentQuestion.correct_answer) {
         this.score += 10;
@@ -36,7 +37,8 @@ export default {
         this.updateAnswers();
       } else {
         this.gameArray.push({"Total score: " : this.score});
-        mapMutations(['setGameArray']);
+        this.gameArray.push({"User: " : this.getUserName()})
+        this.setGameArray(this.gameArray);
         this.$emit("completed-game", this.gameArray);
       }
     },
