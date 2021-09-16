@@ -37,9 +37,9 @@ export default {
     }
   },
   methods: {
-    handleCompletedGame(score) {
+    handleCompletedGame(gameArray) {
       this.isLoading = true;
-      console.log(score);
+      console.log(gameArray);
       this.$router.push('/ScoreBoard');
     }
   }
