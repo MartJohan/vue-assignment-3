@@ -1,33 +1,41 @@
 <template>
-    <div id="homePageComponent">
-        <div class="d-flex justify-content-center" >
-            <div class="shadow-sm p-2">
-                <h1 class="m-4">WELCOME TO TRIVIA QUIZ</h1>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Username</span>
-                    <input class="form-control" type="text" id="username" v-model="username" required><br/><br/>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text"> Select difficulty </label>
+    <!--- Hompage component using bootstrap styling, Its not good, but its something  --->
+    <div style="position: relative">
+        <div id="homePageComponent">
+            <div class="d-flex justify-content-center" >
+                <div class="shadow-sm m-5">
+                    <h1 class="m-4">WELCOME TO TRIVIA QUIZ</h1>
+                    <!--- Username input --->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Username</span>
+                        <input class="form-control" type="text" id="username" v-model="username" required><br/><br/>
                     </div>
-                    <select class="custom-select form-control" id="difficulty" v-model="difficulty">
-                        <option v-for="difficulty in difficulties" :key="difficulty">{{ difficulty }}</option>
-                    </select>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" > Chose category </label>
+                    <!--- Select Difficulty --->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text"> Select difficulty </label>
+                        </div>
+                        <select class="custom-select form-control" id="difficulty" v-model="difficulty">
+                            <option v-for="difficulty in difficulties" :key="difficulty">{{ difficulty }}</option>
+                        </select>
                     </div>
-                    <select class="custom-select form-control" id="category" v-model="category">
-                        <option v-for="category in categories" :key="category" :value="category.value" >{{ category.name }}</option>
-                    </select>
+                    <!--- Choose category --->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" > Choose category </label>
+                        </div>
+                        <select class="custom-select form-control" id="category" v-model="category">
+                            <option v-for="category in categories" :key="category" :value="category.id" >{{ category.name }}</option>
+                        </select>
+                    </div>
+                    <!--- Choose how many questions you want --->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" > Choose amount of questions</span>
+                        <input class="form-control" v-model="amount"  type="number" min="1" max="50"/>
+                    </div>
+                    <!--- Start button, calls function handleGameStartClick--->
+                    <button type="button" class="btn btn-success form-control" @click="handleGameStartClick()">START</button>
                 </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text" > Chose amount of questions</span>
-                    <input class="form-control" v-model="amount"  type="number" min="1" max="99"/>
-                </div>
-                <button type="button" class="btn btn-primary m-4" @click="handleGameStartClick()">START</button>
             </div>
         </div>
     </div>
@@ -35,56 +43,43 @@
 
 <script>
 import { mapMutations } from 'vuex';
+import {fetchCategories} from "../../API/questionAPI";
 
 //Default export for home page.
 export default{
     name: 'homepage',
+    //Initialising categories
+    async created() {
+        //Gets categories from the trivia api, using fetchCategories defined in QuestionAPI
+        const [error, categories] = await fetchCategories();
+        this.error = error
+        this.categories = categories
+    },
+    //Return values
     data(){
         return{
             username: "",
             amount: 0,
             difficulty: "",
             category: "",
-            //Array of difficulties used to generate the select options TODO: make use of a fetch to retrieve thees instead of hard coding them inn.
-            difficulties: ['easy', 'medium','hard', 'Any Difficulty'],
-            //Array of category's used to generate select options. TODO: make use of a fetch to retrieve thees instead of hard coding them inn.
-            categories: [
-                { value: 'any', name: 'Any Category'},
-                { value: '9', name: 'General Knowledge'},
-                { value: '10', name: 'Entertainment: Books'},
-                { value: '11', name: 'Entertainment: Film'},
-                { value: '12', name: 'Entertainment: Music'},
-                { value: '13', name: 'Entertainment: Musicals & Theatres'},
-                { value: '14', name: 'Entertainment: Television'},
-                { value: '15', name: 'Entertainment: Video Games'},
-                { value: '16', name: 'Entertainment: Board Games'},
-                { value: '17', name: 'Science & Nature'},
-                { value: '18', name: 'Science: Computers'},
-                { value: '19', name: 'Science: Mathematics'},
-                { value: '20', name: 'Mythology'},
-                { value: '21', name: 'Sports'},
-                { value: '22', name: 'Geography'},
-                { value: '23', name: 'History'},
-                { value: '24', name: 'Politics'},
-                { value: '25', name: 'Art'},
-                { value: '26', name: 'Celebrities'},
-                { value: '27', name: 'Animals'},
-                { value: '28', name: 'Vehicles'},
-                { value: '29', name: 'Entertainment: Comics'},
-                { value: '30', name: 'Science: Gadgets'},
-                { value: '31', name: 'Entertainment: Japanese Anime & Manga'},
-                { value: '32', name: 'Entertainment: Cartoon & Animations'},
-            ]
+            error: '',
+            //Array of difficulties used to generate the select options
+            difficulties: ['any', 'easy', 'medium','hard'],
+            //Array of category's used to generate select options.
+            categories: [],
         }
     },
     methods: {
+        //VueX. Uses mapMutation to retrieve the set functions defined in store.js
         ...mapMutations(["setUserName","setDifficulty","setCategory","setNumberOfQuestions", "setUrl"]),
         handleGameStartClick(){
 
+            //Updates values in Store.js to be the user input from homepageComponent
             this.setUserName(this.username)
             this.setDifficulty(this.difficulty)
             this.setCategory(this.category)
             this.setNumberOfQuestions(this.amount)
+            //Builds the url used in the fetchQuestions function
             this.setUrl(`https://opentdb.com./api.php?amount=${this.number}&category=${this.category}&difficulty=${this.difficulty}`)
             this.$router.push('/Questions')
         }
