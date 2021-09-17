@@ -44,6 +44,7 @@
 <script>
 import { mapMutations } from 'vuex';
 import {fetchCategories} from "../../API/questionAPI";
+import { CheckForPlayer } from "../../API/playerAPI";
 
 //Default export for home page.
 export default{
@@ -54,6 +55,8 @@ export default{
         const [error, categories] = await fetchCategories();
         this.error = error
         this.categories = categories
+        const lol = await CheckForPlayer("gingerbread");
+        console.log(lol);
     },
     //Return values
     data(){
