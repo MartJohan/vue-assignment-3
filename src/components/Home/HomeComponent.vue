@@ -70,6 +70,7 @@ export default{
             difficulties: ['any', 'easy', 'medium','hard'],
             //Array of category's used to generate select options.
             categories: [],
+          baseURL : "https://opentdb.com/api.php?",
         }
     },
     methods: {
@@ -82,14 +83,13 @@ export default{
             this.setDifficulty(this.difficulty)
             this.setCategory(this.category)
             this.setNumberOfQuestions(this.amount)
-            //Builds the url used in the fetchQuestions function
-            this.setUrl(`https://opentdb.com./api.php?amount=${this.number}&category=${this.category}&difficulty=${this.difficulty}`)
 
           //Format URL
             this.baseURL += `amount=${this.amount}`;
             if(this.category !== "") { this.baseURL += `&category=${this.category}` }
             if(this.difficulty !== "") { this.baseURL += `&difficulty=${this.difficulty}` }
 
+            console.log(this.baseURL);
             this.setUrl(this.baseURL);
             this.$router.push('/Questions')
         }

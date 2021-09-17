@@ -22,6 +22,7 @@ export default {
     this.error = error;
     this.questions = questions
     this.isLoading = false;
+    console.log(this.url);
   },
   data() {
     return {
