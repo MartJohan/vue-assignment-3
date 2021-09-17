@@ -32,7 +32,8 @@ export default{
             //Array of difficulties used to generate the select options TODO: make use of a fetch to retrieve thees instead of hard coding them inn.
             difficulties: ['easy', 'medium','hard', 'Any Difficulty'],
             //Array of category's used to generate select options. TODO: make use of a fetch to retrieve thees instead of hard coding them inn.
-            categories: [
+            baseURL : "https://opentdb.com/api.php?",
+          categories: [
                 { value: 'any', name: 'Any Category'},
                 { value: '9', name: 'General Knowledge'},
                 { value: '10', name: 'Entertainment: Books'},
@@ -69,7 +70,13 @@ export default{
             this.setDifficulty(this.difficulty)
             this.setCategory(this.category)
             this.setNumberOfQuestions(this.amount)
-            this.setUrl(`https://opentdb.com/api.php?amount=${this.amount}&category=${this.category}&difficulty=${this.difficulty}`)
+
+          //Format URL
+            this.baseURL += `amount=${this.amount}`;
+            if(this.category !== "") { this.baseURL += `&category=${this.category}` }
+            if(this.difficulty !== "") { this.baseURL += `&difficulty=${this.difficulty}` }
+
+            this.setUrl(this.baseURL);
             this.$router.push('/Questions')
         }
     },
