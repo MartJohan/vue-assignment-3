@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import {mapMutations} from 'vuex';
 
 //Default export for home page.
 export default{
@@ -69,10 +69,10 @@ export default{
             this.setDifficulty(this.difficulty)
             this.setCategory(this.category)
             this.setNumberOfQuestions(this.amount)
-            this.setUrl(`https://opentdb.com./api.php?amount=${this.number}&category=${this.category}&difficulty=${this.difficulty}`)
+            this.setUrl(`https://opentdb.com/api.php?amount=${this.amount}&category=${this.category}&difficulty=${this.difficulty}`)
             this.$router.push('/Questions')
         }
-    }
+    },
 }
 
 </script>

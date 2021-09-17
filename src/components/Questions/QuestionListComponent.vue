@@ -26,17 +26,24 @@ export default {
   methods: {
     ...mapMutations(['setGameArray','setScore']),
     handleNextQuestion(answer) {
-      if (answer === this.currentQuestion.correct_answer) {
-        this.score += 10;
-      }
       if (this.counter < this.questions.length-1) {
+        if (answer === this.currentQuestion.correct_answer) {
+          this.score += 10;
+        }
         this.gameArray.push({id : this.counter, question : this.currentQuestion.question,
         answer : answer,
         correct : this.currentQuestion.correct_answer});
         this.counter++;
         this.currentQuestion = this.questions[this.counter];
         this.updateAnswers();
+        console.log(this.counter, this.questions.length);
       } else {
+        if (answer === this.currentQuestion.correct_answer) {
+          this.score += 10;
+        }
+        this.gameArray.push({id : this.counter, question : this.currentQuestion.question,
+          answer : answer,
+          correct : this.currentQuestion.correct_answer});
         this.setScore(this.score);
         this.setGameArray(this.gameArray);
         this.$emit("completed-game");

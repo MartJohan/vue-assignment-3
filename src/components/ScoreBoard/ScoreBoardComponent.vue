@@ -7,7 +7,7 @@
   </ul>
   <p>Total score : {{score}}</p>
   <button @click="pushToMainPage">New round, with different options</button>
-  <button>New round, with same options</button>
+  <button @click="pushToNewGame">New round, with same options</button>
 </template>
 
 <script>
@@ -33,6 +33,9 @@ export default {
   methods: {
     pushToMainPage() {
       this.$router.push('/')
+    },
+    pushToNewGame() {
+      this.$router.push('/Questions')
     }
   }
 }

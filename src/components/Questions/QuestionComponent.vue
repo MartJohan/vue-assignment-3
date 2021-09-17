@@ -3,7 +3,6 @@
     <div>
       <p v-if="isLoading">Fetching character...</p>
     </div>
-
     <div v-if="!isLoading">
         <QuestionList :questions="questions" @completed-game="handleCompletedGame"/>
     </div>
@@ -13,13 +12,13 @@
 <script>
 import QuestionList from "./QuestionListComponent";
 import { fetchQuestions } from "../../API/questionAPI";
-import {mapGetters, mapMutations, mapState} from 'vuex';
+import { mapMutations, mapState} from 'vuex';
 
 export default {
   name : 'Questions',
   components: {QuestionList},
   async created() {
-    const [error, questions] = await fetchQuestions('https://opentdb.com/api.php?amount=20&category=23&difficulty=easy')
+    const [error, questions] = await fetchQuestions(this.url);
     this.error = error;
     this.questions = questions
     this.isLoading = false;
@@ -27,14 +26,13 @@ export default {
   data() {
     return {
       isLoading : true,
-      error : '',
       questions : [],
+      error : '',
     }
   },
   computed: {
-    ...mapState(['allQuestions','loadingQuestions','error']),
+    ...mapState(['allQuestions','loadingQuestions','error','url']),
     ...mapMutations(['setAllQuestions', 'setLoadingQuestions','setQuestionError']),
-    ...mapGetters(['getLoadingQuestions'])
   },
   methods: {
     handleCompletedGame() {
