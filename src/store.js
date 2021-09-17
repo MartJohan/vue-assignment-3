@@ -37,18 +37,21 @@ export default createStore({
         },
         setScore : (state, payload) => {
             state.score = payload;
-        }
+        },
+        setAllQuestions : (state,payload) => {
+            state.allQuestions = payload;
+        },
     },
     actions : {
         async fetchQuestions({commit, state}) {
             if(state.allQuestions.length  !== 0) {
                 return new Promise(resolve => resolve());
             }
-
-            const [error, questions] = await questionAPI.fetchQuestions();
+            const url = "https://opentdb.com/api.php?amount=20&category=23&difficulty=easy";
+            const [error, questions] = await questionAPI.fetchQuestions(url);
             commit('setLoadingQuestions', false);
             commit('setQuestionError', error);
-            commit('setGameArray', questions);
+            commit('setAllQuestions', questions);
         }
     },
     getters : {
@@ -66,6 +69,12 @@ export default createStore({
         },
         getGameArray : state => {
             return state.gameArray;
+        },
+        getAllQuestions : state => {
+            return state.allQuestions;
+        },
+        getLoadingQuestions : state => {
+            return state.loadingQuestions;
         }
     }
 });

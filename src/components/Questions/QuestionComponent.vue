@@ -16,29 +16,31 @@
 
 <script>
 
-import {fetchQuestions} from "../../API/questionAPI";
 import QuestionList from "./QuestionListComponent";
+import {mapGetters, mapMutations, mapState} from 'vuex';
 
 export default {
   name : 'Questions',
   components: {QuestionList},
   async created() {
-    const [error, questions] = await fetchQuestions()
+    const [error, questions] = await this.fetchQuestions()
 
-    this.error = error;
-    this.questions = questions;
-    this.isLoading = false;
+    this.setQuestionError(error);
+    this.setAllQuestions(questions);
+    this.setLoadingQuestions(false);
   },
   data() {
     return {
       isLoading : true,
-      error : '',
-      questions : [],
     }
+  },
+  computed: {
+    ...mapState(['allQuestions','loadingQuestions','error']),
+    ...mapMutations(['setAllQuestions', 'setLoadingQuestions','setQuestionError']),
+    ...mapGetters(['getLoadingQuestions'])
   },
   methods: {
     handleCompletedGame() {
-      this.isLoading = true;
       this.$router.push('/ScoreBoard');
     }
   }

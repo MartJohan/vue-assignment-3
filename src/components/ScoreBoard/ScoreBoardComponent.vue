@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     pushToMainPage() {
-      this.$router.push('/')  
+      this.$router.push('/')
     }
   }
 }

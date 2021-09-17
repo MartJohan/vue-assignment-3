@@ -23,8 +23,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setGameArray']),
-    ...mapMutations(['setScore']),
+    ...mapMutations(['setGameArray','setScore']),
     handleNextQuestion(answer) {
       if (answer === this.currentQuestion.correct_answer) {
         this.score += 10;
