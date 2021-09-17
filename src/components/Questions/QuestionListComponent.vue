@@ -4,13 +4,14 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations,mapGetters } from 'vuex';
 export default {
   name: "QuestionList",
   props: ['questions'],
   emits : ["completed-game"],
   created() {
     this.currentQuestion = this.questions[this.counter];
+    this.setGameArray(this.gameArray);
     this.updateAnswers()
   },
   data() {

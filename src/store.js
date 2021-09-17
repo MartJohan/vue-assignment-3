@@ -47,7 +47,10 @@ export default createStore({
             if(state.allQuestions.length  !== 0) {
                 return new Promise(resolve => resolve());
             }
-            const url = "https://opentdb.com/api.php?amount=20&category=23&difficulty=easy";
+            //TODO: make question use this fetch insted of the questionAPI.js
+            let url = `https://opentdb.com./api.php?amount=${this.number}&category=${this.category}&difficulty=${this.difficulty}`
+            // 'https://opentdb.com/api.php?amount=20&category=23&difficulty=easy'
+            console.log(url);
             const [error, questions] = await questionAPI.fetchQuestions(url);
             commit('setLoadingQuestions', false);
             commit('setQuestionError', error);
