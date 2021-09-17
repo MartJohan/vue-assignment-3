@@ -1,6 +1,5 @@
 <template>
   <p>{{ currentQuestion.question }}</p>
-
   <button v-for="answer in answers" :key="answer" @click="handleNextQuestion(answer)">{{answer}}</button>
 </template>
 
@@ -12,7 +11,6 @@ export default {
   emits : ["completed-game"],
   created() {
     this.currentQuestion = this.questions[this.counter];
-    this.setGameArray(this.gameArray);
     this.updateAnswers()
   },
   data() {
@@ -25,19 +23,23 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setGameArray']),
+    ...mapMutations(['setScore']),
     handleNextQuestion(answer) {
       if (answer === this.currentQuestion.correct_answer) {
         this.score += 10;
       }
       if (this.counter < this.questions.length-1) {
-        this.gameArray.push([this.currentQuestion.question,answer,this.currentQuestion.correct_answer])
+        this.gameArray.push({id : this.counter, question : this.currentQuestion.question,
+        answer : answer,
+        correct : this.currentQuestion.correct_answer});
         this.counter++;
         this.currentQuestion = this.questions[this.counter];
         this.updateAnswers();
       } else {
-        this.gameArray.push({"Total score: " : this.score});
-        mapMutations(['setGameArray']);
-        this.$emit("completed-game", this.gameArray);
+        this.setScore(this.score);
+        this.setGameArray(this.gameArray);
+        this.$emit("completed-game");
       }
     },
 
