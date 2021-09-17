@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import { mapMutations,mapGetters } from 'vuex';
+import { mapMutations } from 'vuex';
 export default {
   name: "QuestionList",
   props: ['questions'],

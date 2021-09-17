@@ -1,4 +1,3 @@
-import { questionAPI  } from "./API/questionAPI";
 import { createStore } from 'vuex';
 
 export default createStore({
@@ -43,7 +42,7 @@ export default createStore({
         },
     },
     actions : {
-        async fetchQuestions({commit, state}) {
+        /*async fetchQuestions({commit, state}) {
             if(state.allQuestions.length  !== 0) {
                 return new Promise(resolve => resolve());
             }
@@ -56,6 +55,7 @@ export default createStore({
             commit('setQuestionError', error);
             commit('setAllQuestions', questions);
         }
+         */
     },
     getters : {
         getCategory : state => {
