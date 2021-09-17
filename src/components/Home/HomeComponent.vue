@@ -1,19 +1,23 @@
 <template>
     <div id="homePageComponent">
-        <h1>Welcome To TRIVIA quiz</h1>
-        <label for="username" >Enter your Username</label><br/><br/>
-        <input type="text" id="username" v-model="username" required><br/><br/>
-        <label> Select difficulty </label><br/>
-        <select id="difficulty" v-model="difficulty">
-            <option v-for="difficulty in difficulties" :key="difficulty">{{ difficulty }}</option>
-        </select>
-        <br/><br/>
-        <label> Chose category </label><br/><br/>
-        <select id="category" v-model="category">
-            <option v-for="category in categories" :key="category" :value="category.value" >{{ category.name }}</option></select><br/><br/>
-        <label for="numberQ"> Chose amount of questions</label><br/>
-        <input v-model="amount"  type="number" id="numberQ" min="1" max="99"><br/><br/>
-        <button @click="handleGameStartClick()">START</button>
+        <div class="d-flex justify-content-center" >
+            <div class="shadow-sm ">
+                <h1>Welcome To TRIVIA quiz</h1>
+                <label for="username" >Enter your Username</label><br/><br/>
+                <input type="text" id="username" v-model="username" required><br/><br/>
+                <label> Select difficulty </label><br/>
+                <select id="difficulty" v-model="difficulty">
+                    <option v-for="difficulty in difficulties" :key="difficulty">{{ difficulty }}</option>
+                </select>
+                <br/><br/>
+                <label> Chose category </label><br/><br/>
+                <select id="category" v-model="category">
+                    <option v-for="category in categories" :key="category" :value="category.value" >{{ category.name }}</option></select><br/><br/>
+                <label for="numberQ"> Chose amount of questions</label><br/>
+                <input v-model="amount"  type="number" id="numberQ" min="1" max="99"><br/><br/>
+                <button type="button" class="btn btn-primary" @click="handleGameStartClick()">START</button>
+            </div>
+        </div>
     </div>
 </template>
 
