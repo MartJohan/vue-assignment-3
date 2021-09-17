@@ -1,6 +1,6 @@
-export const fetchQuestions = async () => {
+export const fetchQuestions = async (url) => {
     try {
-        const { results } = await fetch('https://opentdb.com/api.php?amount=20&category=23&difficulty=easy')
+        const { results } = await fetch(url)
             .then(response => response.json());
         return [null, results]
     } catch(e) {
