@@ -3,7 +3,6 @@
         <div class="d-flex justify-content-center" >
             <div class="shadow-sm p-2">
                 <h1 class="m-4">WELCOME TO TRIVIA QUIZ</h1>
-
                 <div class="input-group mb-3">
                     <span class="input-group-text">Username</span>
                     <input class="form-control" type="text" id="username" v-model="username" required><br/><br/>
