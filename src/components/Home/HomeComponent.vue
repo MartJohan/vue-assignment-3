@@ -79,14 +79,14 @@ export default{
         }
     },
     methods: {
-        ...mapMutations(["setUserName","setDifficulty","setCategory","setNumberOfQuestions"]),
+        ...mapMutations(["setUserName","setDifficulty","setCategory","setNumberOfQuestions", "setUrl"]),
         handleGameStartClick(){
+
             this.setUserName(this.username)
             this.setDifficulty(this.difficulty)
             this.setCategory(this.category)
             this.setNumberOfQuestions(this.amount)
-
-            console.log(this.username, this.amount, this.difficulty, this.category)
+            this.setUrl(`https://opentdb.com./api.php?amount=${this.number}&category=${this.category}&difficulty=${this.difficulty}`)
             this.$router.push('/Questions')
         }
     }
