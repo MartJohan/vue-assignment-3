@@ -11,6 +11,7 @@ export default createStore({
         allQuestions : [],
         error : '',
         loadingQuestions : true,
+        url : "",
     },
     mutations : {
         setUserName : (state, payload) => {
@@ -40,6 +41,10 @@ export default createStore({
         setAllQuestions : (state,payload) => {
             state.allQuestions = payload;
         },
+        setUrl : (state, payload) => {
+            state.url = payload
+        }
+
     },
     actions : {
         /*async fetchQuestions({commit, state}) {
@@ -72,6 +77,9 @@ export default createStore({
         },
         getGameArray : state => {
             return state.gameArray;
+        },
+        getUrl : state => {
+            return state.url;
         },
         getAllQuestions : state => {
             return state.allQuestions;
