@@ -4,7 +4,7 @@
       <p v-if="isLoading">Fetching character...</p>
     </div>
     <div v-if="!isLoading">
-        <QuestionList :questions="allQuestions" @completed-game="handleCompletedGame"/>
+        <QuestionList :questions="decodedQuestions" @completed-game="handleCompletedGame"/>
     </div>
   </div>
 </template>
@@ -22,22 +22,23 @@ export default {
     this.code = code;
     await this.CheckToken();
     this.error = error;
-    this.allQuestions = questions
+    await this.decodeQuestions(questions);
+    this.decodedQuestions = this.allQuestions;
     this.isLoading = false;
   },
   data() {
     return {
       error : '',
-      allQuestions : [],
       isLoading : true,
       code : '',
+      decodedQuestions : [],
     }
   },
   computed: {
-    ...mapState(['url','player','username','highScore','token']),
+    ...mapState(['url','player','username','highScore','token','allQuestions']),
   },
   methods: {
-    ...mapMutations(['setPlayer','setToken','setLoadingQuestions']),
+    ...mapMutations(['setPlayer','setToken','setLoadingQuestions','setAllQuestions']),
     async handleCompletedGame() {
       await this.$router.push('/ScoreBoard');
     },
@@ -63,6 +64,29 @@ export default {
       } else {
         return true;
       }
+    },
+    //This method id garbage, we know :(
+    async decodeQuestions(questions) {
+      let newArr = [];
+      let IA_array = [];
+      questions.forEach(object => {
+        const newObject = {
+          question : atob(object.question),
+          category : atob(object.category),
+          type : atob(object.type),
+          difficulty : atob(object.difficulty),
+          correct_answer : atob(object.correct_answer),
+        }
+        object.incorrect_answers.forEach(value => {
+          IA_array.push(atob(value));
+        })
+        newObject.incorrect_answers = IA_array;
+        IA_array = [];
+
+        newArr.push(newObject);
+      })
+      console.log(newArr)
+      this.setAllQuestions(newArr);
     },
   }
 }

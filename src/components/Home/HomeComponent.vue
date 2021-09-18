@@ -88,8 +88,9 @@ export default{
           //Format URL
             this.baseURL += `amount=${this.amount}`;
             if(this.category !== "") { this.baseURL += `&category=${this.category}` }
-            if(this.difficulty !== "") { this.baseURL += `&difficulty=${this.difficulty}` }
+            if(this.difficulty !== "" && this.difficulty !== 'any') { this.baseURL += `&difficulty=${this.difficulty}` }
             this.baseURL += `&token=${this.token}`;
+            this.baseURL += `&encode=base64`;
 
             this.setUrl(this.baseURL);
             this.$router.push('/Questions')

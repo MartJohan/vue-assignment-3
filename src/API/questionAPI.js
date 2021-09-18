@@ -1,6 +1,6 @@
 export const fetchQuestions = async (url) => {
     try {
-        const { error, response_code, results } = await fetch(url)
+        const { response_code, results, error } = await fetch(url)
             .then(response => response.json());
         return [response_code, results, error]
     } catch(e) {
