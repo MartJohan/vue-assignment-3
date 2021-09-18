@@ -7,11 +7,12 @@ export default createStore({
         difficulty : '',
         numberOfQuestions : 0,
         gameArray : [],
-        score : 0,
+        highScore : 0,
         allQuestions : [],
         error : '',
         loadingQuestions : true,
         url : "",
+        player : {},
     },
     mutations : {
         setUserName : (state, payload) => {
@@ -36,15 +37,17 @@ export default createStore({
             state.loadingQuestions = payload;
         },
         setScore : (state, payload) => {
-            state.score = payload;
+            state.highScore = payload;
         },
         setAllQuestions : (state,payload) => {
             state.allQuestions = payload;
         },
         setUrl : (state, payload) => {
-            state.url = payload
-        }
-
+            state.url = payload;
+        },
+        setPlayer : (state,payload) => {
+            state.player = payload;
+        },
     },
     actions : {
     },
@@ -59,7 +62,7 @@ export default createStore({
             return state.difficulty;
         },
         getScore : state => {
-            return state.score;
+            return state.highScore;
         },
         getGameArray : state => {
             return state.gameArray;
@@ -72,6 +75,9 @@ export default createStore({
         },
         getLoadingQuestions : state => {
             return state.loadingQuestions;
+        },
+        getPlayer : state => {
+            return state.player;
         }
     }
 });

@@ -22,7 +22,6 @@ export default {
     this.error = error;
     this.questions = questions
     this.isLoading = false;
-    console.log(this.url);
   },
   data() {
     return {
@@ -32,12 +31,12 @@ export default {
     }
   },
   computed: {
-    ...mapState(['allQuestions','loadingQuestions','error','url']),
-    ...mapMutations(['setAllQuestions', 'setLoadingQuestions','setQuestionError']),
+    ...mapState(['allQuestions','loadingQuestions','error','url','player','username','highScore']),
   },
   methods: {
-    handleCompletedGame() {
-      this.$router.push('/ScoreBoard');
+    ...mapMutations(['setPlayer']),
+    async handleCompletedGame() {
+      await this.$router.push('/ScoreBoard');
     }
   }
 }

@@ -19,7 +19,7 @@ export default {
       answers: [],
       currentQuestion: {},
       counter: 0,
-      score: 0,
+      highScore: 0,
       gameArray : [],
     }
   },
@@ -28,7 +28,7 @@ export default {
     handleNextQuestion(answer) {
       if (this.counter < this.questions.length-1) {
         if (answer === this.currentQuestion.correct_answer) {
-          this.score += 10;
+          this.highScore += 10;
         }
         this.gameArray.push({id : this.counter, question : this.currentQuestion.question,
         answer : answer,
@@ -36,15 +36,14 @@ export default {
         this.counter++;
         this.currentQuestion = this.questions[this.counter];
         this.updateAnswers();
-        console.log(this.counter, this.questions.length);
       } else {
         if (answer === this.currentQuestion.correct_answer) {
-          this.score += 10;
+          this.highScore += 10;
         }
         this.gameArray.push({id : this.counter, question : this.currentQuestion.question,
           answer : answer,
           correct : this.currentQuestion.correct_answer});
-        this.setScore(this.score);
+        this.setScore(this.highScore);
         this.setGameArray(this.gameArray);
         this.$emit("completed-game");
       }
