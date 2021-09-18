@@ -42,10 +42,11 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import {mapMutations, mapState} from 'vuex';
 import {fetchCategories} from "../../API/questionAPI";
 
-//Default export for home page.
+//Default expo
+// rt for home page.
 export default{
     name: 'homepage',
     //Initialising categories
@@ -70,6 +71,9 @@ export default{
           baseURL : "https://opentdb.com/api.php?",
         }
     },
+  computed : {
+      ...mapState(['token'])
+  },
     methods: {
         //VueX. Uses mapMutation to retrieve the set functions defined in store.js
         ...mapMutations(["setUserName","setDifficulty","setCategory","setNumberOfQuestions", "setUrl"]),
@@ -85,6 +89,7 @@ export default{
             this.baseURL += `amount=${this.amount}`;
             if(this.category !== "") { this.baseURL += `&category=${this.category}` }
             if(this.difficulty !== "") { this.baseURL += `&difficulty=${this.difficulty}` }
+            this.baseURL += `&token=${this.token}`;
 
             this.setUrl(this.baseURL);
             this.$router.push('/Questions')

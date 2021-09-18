@@ -13,6 +13,7 @@ export default createStore({
         loadingQuestions : true,
         url : "",
         player : {},
+        token : '',
     },
     mutations : {
         setUserName : (state, payload) => {
@@ -48,6 +49,9 @@ export default createStore({
         setPlayer : (state,payload) => {
             state.player = payload;
         },
+        setToken : (state, payload) => {
+            state.token = payload;
+        }
     },
     actions : {
     },

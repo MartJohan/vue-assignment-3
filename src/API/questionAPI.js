@@ -1,10 +1,10 @@
 export const fetchQuestions = async (url) => {
     try {
-        const { results } = await fetch(url)
+        const { error, response_code, results } = await fetch(url)
             .then(response => response.json());
-        return [null, results]
+        return [response_code, results, error]
     } catch(e) {
-        return [e.message, null]
+        return [null, null,e.message]
     }
 }
 
@@ -14,5 +14,25 @@ export const fetchCategories = async () => {
         return [null, trivia_categories]
     } catch(e) {
         return [e.message, null];
+    }
+}
+
+export const fetchToken = async () => {
+    try {
+        const { token } = await fetch('https://opentdb.com/api_token.php?command=request')
+            .then(response => response.json());
+        return token
+    } catch(e) {
+        return e.message
+    }
+}
+
+export const resetToken = async(oldToken) => {
+    try {
+        const { token } = await fetch(`https://opentdb.com/api_token.php?command=reset&token=${oldToken}`)
+            .then(response => response.json());
+        return token;
+    } catch(e) {
+        return e.message;
     }
 }
