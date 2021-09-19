@@ -1,6 +1,6 @@
 <template>
     <!--- Hompage component using bootstrap styling, Its not good, but its something  --->
-    <div style="position: relative">
+    <div style="position: relative" class="container">
         <div id="homePageComponent">
             <div class="d-flex justify-content-center" >
                 <div class="shadow-sm m-5">
@@ -40,7 +40,6 @@
         </div>
     </div>
 </template>
-
 <script>
 import {mapMutations, mapState} from 'vuex';
 import {fetchCategories} from "../../API/questionAPI";
