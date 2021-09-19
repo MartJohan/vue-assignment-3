@@ -1,6 +1,16 @@
 <template>
-  <p>{{ currentQuestion.question }}</p>
-  <button v-for="answer in answers" :key="answer" @click="handleNextQuestion(answer)">{{answer}}</button>
+  <div class="container" style="margin-top : 50px;">
+    <div class="row">
+      <div class="col text-center">
+        <p>{{ currentQuestion.question }}</p>
+      </div>
+    </div>
+    <div class="row" style="max-width: 70%; margin-left: 15%;">
+      <div v-for="answer in answers" :key="answer" @click="handleNextQuestion(answer)" class="col-6">
+        <button class="btn btn-outline-primary w-100">{{answer}}</button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

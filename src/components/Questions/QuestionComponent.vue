@@ -85,7 +85,6 @@ export default {
 
         newArr.push(newObject);
       })
-      console.log(newArr)
       this.setAllQuestions(newArr);
     },
   }
