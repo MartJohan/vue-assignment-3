@@ -1,13 +1,24 @@
 <template>
-  <ul>
+  <div>
+    <ul class="list-group">
       <ScoreBoardListComponent
           v-for="question in gameData"
           :question="question"
           :key="question.id"/>
-  </ul>
-  <p>Total score : {{score}}</p>
-  <button @click="pushToMainPage">New round, with different options</button>
-  <button @click="pushToNewGame">New round, with same options</button>
+    </ul>
+    <div>
+      <br/>
+      <div class="d-flex justify-content-center">
+        <h4>Total score : {{score}}</h4>
+      </div>
+      <br/>
+      <div class="d-flex justify-content-center buttons">
+        <button @click="pushToNewGame" class="btn btn-primary">New round, with same options</button>
+        <button @click="pushToMainPage" class="btn btn-secondary" style="margin-left:10px !important">New round, with different options</button>
+      </div>
+    </div>
+
+  </div>
 </template>
 
 <script>
@@ -46,8 +57,7 @@ export default {
         this.setPlayer({username : this.username, highScore : this.highScore})
         if(this.highScore > playerinDB.highScore) {
           await PatchScore(playerinDB.id, this.highScore)
-          console.log("patchet")
-        } else { console.log("nothing to patch"); }
+        }
       }
     },
     pushToMainPage() {
