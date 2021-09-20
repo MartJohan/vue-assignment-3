@@ -35,6 +35,7 @@ export default {
   },
   methods: {
     ...mapMutations(['setGameArray','setScore']),
+    //Each time a answer button is clicked, update score and answers in button then show next question
     handleNextQuestion(answer) {
       if (this.counter < this.questions.length-1) {
         if (answer === this.currentQuestion.correct_answer) {
@@ -58,7 +59,7 @@ export default {
         this.$emit("completed-game");
       }
     },
-
+    //Helper method for updating the texts in the buttons
     updateAnswers() {
       this.answers = [
         this.currentQuestion.correct_answer,

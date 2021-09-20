@@ -45,15 +45,14 @@ export default {
   },
   methods: {
     ...mapMutations(['setPlayer']),
+    //Checks the score and the player, if the player is new save it to the database
+    //If the player exist check if the score is bigger than the previous score and update it if it is
     async CheckScore() {
       const playerinDB = await CheckForPlayer(this.username);
       if(!playerinDB) {
         //this contains the value of the posted player, set this to SetPlayer function
         await savePlayer(this.username, this.highScore).then(value => { this.setPlayer(value); })
-        console.log(this.player);
       } else {
-        console.log(this.highScore);
-        console.log(playerinDB.highScore);
         this.setPlayer({username : this.username, highScore : this.highScore})
         if(this.highScore > playerinDB.highScore) {
           await PatchScore(playerinDB.id, this.highScore)

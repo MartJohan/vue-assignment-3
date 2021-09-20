@@ -42,6 +42,7 @@ export default {
     async handleCompletedGame() {
       await this.$router.push('/ScoreBoard');
     },
+    // Checks the session token results
     async CheckToken() {
       if(this.code === 1) {
         //No results, get new token
@@ -65,7 +66,8 @@ export default {
         return true;
       }
     },
-    //This method id garbage, we know :(
+    //Decode all the texts in the questions from Base64 to normal string
+    //This method is pretty bad, we know :(
     async decodeQuestions(questions) {
       let newArr = [];
       let IA_array = [];
