@@ -6,3 +6,18 @@ This is the second assignment that is part of the frontend course. We were taske
 We worked on this assignment in a group consisting of me (Maritn Johansen) and Martin Stenberg.
 
 The project also contains a pdf file representing the component tree.
+
+---
+##Component tree
+
+We have made a component tree of our application. 
+
+The PDF-file is found in the root folder and it's called Trivia-component-schema.pdf
+
+---
+
+##Heroku
+
+Our app is deployed on Heroku! 
+
+The link is : https://secret-brook-16099.herokuapp.com/
